@@ -17,6 +17,7 @@ class _LocationPageState extends State<LocationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
         title: Text(
           'Joylashuv',
           style: TextStyle(fontSize: currentFontSize + 3),
@@ -24,12 +25,11 @@ class _LocationPageState extends State<LocationPage> {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+          const Padding(
+            padding: EdgeInsets.only(top: 20, left: 10, right: 10),
             child: Text(
               '* Afsuski ayni vaqtda O\'zbekistondagi barcha tumanlar dasturimizda mavjud emas. Agarda sizning yashash mazilingiz ham kiritilmagan bo\'lsa o\'zingizga eng yaqin yerni tanlashingizni maslahat beramiz. Noqulayliklar uchun uzur so\'raymiz.',
-              style:
-                  TextStyle(color: Colors.grey, fontSize: currentFontSize - 3),
+              style: TextStyle(color: Colors.grey),
             ),
           ),
           Padding(

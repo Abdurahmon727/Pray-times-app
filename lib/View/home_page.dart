@@ -5,8 +5,7 @@ import 'package:namoz_vaqtlari/Model/consts.dart';
 import 'package:namoz_vaqtlari/Model/drawer.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
 import 'package:namoz_vaqtlari/Model/url_launcher.dart';
-
-import '../Model/notification.dart';
+import 'package:namoz_vaqtlari/View/notification_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +21,7 @@ class _HomePageState extends State<HomePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getTimes(currentDistict, context);
+      //await AwesomeNotifications().cancelAllSchedules();
 
       setState(() {
         currentDate;
@@ -59,21 +59,27 @@ class _HomePageState extends State<HomePage> {
       }
     });
 
+    // for (int i = 0; i < 5; i++) {
+    //   namozNotification[i].acivateNotification();
+    // }
+
     makeDropdowns(regions, regionsItem);
     makeDropdowns2(disticts, distictItem);
+  }
 
-    List<NotificationForNamoz> namozNotification = [
-      NotificationForNamoz('Bomdod', isNotificationEnabled[0], 0),
-      NotificationForNamoz('Peshin', isNotificationEnabled[1], 1),
-      NotificationForNamoz('Asr', isNotificationEnabled[2], 2),
-      NotificationForNamoz('Shom', isNotificationEnabled[3], 3),
-      NotificationForNamoz('Xufton', isNotificationEnabled[4], 4),
-    ];
-
-    for (int i = 0; i < namozNotification.length; i++) {
-      if (namozNotification[i].isNotify == true) {
-        namozNotification[i].acivateNotification();
-      }
+  Future<void> onRefresh() async {
+    if (currentDate.isEmpty) {
+      await getTimes(currentDistict, context);
+    }
+    setState(() {
+      currentDate;
+      currentDay;
+      currentPlace;
+      currentNamozTimes;
+    });
+    await AwesomeNotifications().cancelAllSchedules();
+    for (int i = 0; i < 5; i++) {
+      await namozNotification[i].acivateNotification();
     }
   }
 
@@ -87,25 +93,6 @@ class _HomePageState extends State<HomePage> {
           'Namoz vaqtlari',
           style: TextStyle(fontSize: currentFontSize + 3),
         ),
-        actions: [
-          InkWell(
-            onTap: () async {
-              if (currentDate.isEmpty) {
-                await getTimes(currentDistict, context);
-              }
-              setState(() {
-                currentDate;
-                currentDay;
-                currentPlace;
-                currentNamozTimes;
-              });
-            },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(Icons.refresh),
-            ),
-          )
-        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(25),
           child: Text(
@@ -118,129 +105,137 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          InkWell(
-            onTap: () async {
-              urlLaunch(context);
-            },
-            child: ListTile(
-              leading: Image.asset(
-                'icons/moon to sun.png',
-                width: 40,
-              ),
-              title: Text(
-                'Bomdod',
-                style: TextStyle(fontSize: currentFontSize),
-              ),
-              trailing: Text(
-                currentNamozTimes[0],
-                style: TextStyle(fontSize: currentFontSize - 2),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              urlLaunch(context);
-            },
-            child: ListTile(
-              leading: Image.asset(
-                'icons/sun_up.png',
-                width: 40,
-              ),
-              title: Text(
-                'Quyosh',
-                style: TextStyle(fontSize: currentFontSize),
-              ),
-              trailing: Text(
-                currentNamozTimes[1],
-                style: TextStyle(fontSize: currentFontSize - 2),
+      body: RefreshIndicator(
+        //edgeOffset: -10,
+        displacement: 10,
+        color: kprimaryColor,
+        onRefresh: () async {
+          await onRefresh();
+        },
+        child: ListView(
+          children: [
+            InkWell(
+              onTap: () async {
+                urlLaunch(context);
+              },
+              child: ListTile(
+                leading: Image.asset(
+                  'icons/moon to sun.png',
+                  width: 40,
+                ),
+                title: Text(
+                  'Bomdod',
+                  style: TextStyle(fontSize: currentFontSize),
+                ),
+                trailing: Text(
+                  currentNamozTimes[0],
+                  style: TextStyle(fontSize: currentFontSize - 2),
+                ),
               ),
             ),
-          ),
-          InkWell(
-            onTap: () {
-              urlLaunch(context);
-            },
-            child: ListTile(
-              leading: Image.asset(
-                'icons/sun.png',
-                width: 40,
-              ),
-              title: Text(
-                'Peshin',
-                style: TextStyle(fontSize: currentFontSize),
-              ),
-              trailing: Text(
-                currentNamozTimes[2],
-                style: TextStyle(fontSize: currentFontSize - 2),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              urlLaunch(context);
-            },
-            child: ListTile(
-              leading: Image.asset(
-                'icons/sun_down.png',
-                width: 40,
-              ),
-              title: Text(
-                'Asr',
-                style: TextStyle(fontSize: currentFontSize),
-              ),
-              trailing: Text(
-                currentNamozTimes[3],
-                style: TextStyle(fontSize: currentFontSize - 2),
+            InkWell(
+              onTap: () {
+                urlLaunch(context);
+              },
+              child: ListTile(
+                leading: Image.asset(
+                  'icons/sun_up.png',
+                  width: 40,
+                ),
+                title: Text(
+                  'Quyosh',
+                  style: TextStyle(fontSize: currentFontSize),
+                ),
+                trailing: Text(
+                  currentNamozTimes[1],
+                  style: TextStyle(fontSize: currentFontSize - 2),
+                ),
               ),
             ),
-          ),
-          InkWell(
-            onTap: () {
-              urlLaunch(context);
-            },
-            child: ListTile(
-              leading: Image.asset(
-                'icons/sun to moon.png',
-                width: 40,
-              ),
-              title: Text(
-                'Shom',
-                style: TextStyle(fontSize: currentFontSize),
-              ),
-              trailing: Text(
-                currentNamozTimes[4],
-                style: TextStyle(fontSize: currentFontSize - 2),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              urlLaunch(context);
-            },
-            child: ListTile(
-              leading: Image.asset(
-                'icons/moon.png',
-                width: 40,
-              ),
-              title: Text(
-                'Xufton',
-                style: TextStyle(fontSize: currentFontSize),
-              ),
-              trailing: Text(
-                currentNamozTimes[5],
-                style: TextStyle(fontSize: currentFontSize - 2),
+            InkWell(
+              onTap: () {
+                urlLaunch(context);
+              },
+              child: ListTile(
+                leading: Image.asset(
+                  'icons/sun.png',
+                  width: 40,
+                ),
+                title: Text(
+                  'Peshin',
+                  style: TextStyle(fontSize: currentFontSize),
+                ),
+                trailing: Text(
+                  currentNamozTimes[2],
+                  style: TextStyle(fontSize: currentFontSize - 2),
+                ),
               ),
             ),
-          ),
-          Visibility(
-              visible: (currentDay == 'Juma') ? true : false,
-              child: Image.asset(
-                'assets/juma_muborak.png',
-                fit: BoxFit.fill,
-              ))
-        ],
+            InkWell(
+              onTap: () {
+                urlLaunch(context);
+              },
+              child: ListTile(
+                leading: Image.asset(
+                  'icons/sun_down.png',
+                  width: 40,
+                ),
+                title: Text(
+                  'Asr',
+                  style: TextStyle(fontSize: currentFontSize),
+                ),
+                trailing: Text(
+                  currentNamozTimes[3],
+                  style: TextStyle(fontSize: currentFontSize - 2),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                urlLaunch(context);
+              },
+              child: ListTile(
+                leading: Image.asset(
+                  'icons/sun to moon.png',
+                  width: 40,
+                ),
+                title: Text(
+                  'Shom',
+                  style: TextStyle(fontSize: currentFontSize),
+                ),
+                trailing: Text(
+                  currentNamozTimes[4],
+                  style: TextStyle(fontSize: currentFontSize - 2),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                urlLaunch(context);
+              },
+              child: ListTile(
+                leading: Image.asset(
+                  'icons/moon.png',
+                  width: 40,
+                ),
+                title: Text(
+                  'Xufton',
+                  style: TextStyle(fontSize: currentFontSize),
+                ),
+                trailing: Text(
+                  currentNamozTimes[5],
+                  style: TextStyle(fontSize: currentFontSize - 2),
+                ),
+              ),
+            ),
+            Visibility(
+                visible: (currentDay == 'Juma') ? true : false,
+                child: Image.asset(
+                  'assets/juma_muborak.png',
+                  fit: BoxFit.fill,
+                ))
+          ],
+        ),
       ),
     );
   }

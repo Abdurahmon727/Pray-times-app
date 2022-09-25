@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:namoz_vaqtlari/Controller/provider.dart';
 import 'package:namoz_vaqtlari/Model/consts.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
+import 'package:provider/provider.dart';
 import 'package:restart_app/restart_app.dart';
 
 import '../Model/hive_data.dart';
@@ -19,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
         title: Text(
           'Sozlamalar',
           style: TextStyle(fontSize: currentFontSize + 3),
@@ -141,20 +144,19 @@ class _SettingsPageState extends State<SettingsPage> {
                 });
 
                 if (value == true) {
-                  setState(() {
-                    currentTheme = ThemeMode.system;
-                  });
+                  Provider.of<ProviderData>(context, listen: false)
+                      .setThemeMode(ThemeMode.system);
                   putData('currentTheme', 'system');
                 } else {
                   if (ThemeMode.system == ThemeMode.dark) {
-                    setState(() {
-                      currentTheme = ThemeMode.dark;
-                    });
+                    Provider.of<ProviderData>(context, listen: false)
+                        .setThemeMode(ThemeMode.dark);
+
                     putData('currentTheme', 'dark');
                   } else {
-                    setState(() {
-                      currentTheme = ThemeMode.light;
-                    });
+                    Provider.of<ProviderData>(context, listen: false)
+                        .setThemeMode(ThemeMode.light);
+
                     putData('currentTheme', 'light');
                   }
                 }
@@ -169,10 +171,12 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    if (currentTheme != ThemeMode.light) {
-                      setState(() {
-                        currentTheme = ThemeMode.light;
-                      });
+                    if (Provider.of<ProviderData>(context, listen: false)
+                            .currentTheme !=
+                        ThemeMode.light) {
+                      Provider.of<ProviderData>(context, listen: false)
+                          .setThemeMode(ThemeMode.light);
+
                       putData('currentTheme', 'light');
                     }
                   },
@@ -180,9 +184,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     height: 50,
                     width: MediaQuery.of(context).size.width / 3,
                     decoration: BoxDecoration(
-                        color: (currentTheme == ThemeMode.light)
-                            ? kprimaryColor
-                            : Colors.grey,
+                        color:
+                            (Provider.of<ProviderData>(context, listen: false)
+                                        .currentTheme ==
+                                    ThemeMode.light)
+                                ? kprimaryColor
+                                : Colors.grey,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
                     child: const Align(
@@ -195,10 +202,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (currentTheme != ThemeMode.dark) {
-                      setState(() {
-                        currentTheme = ThemeMode.dark;
-                      });
+                    if (Provider.of<ProviderData>(context, listen: false)
+                            .currentTheme !=
+                        ThemeMode.dark) {
+                      Provider.of<ProviderData>(context, listen: false)
+                          .setThemeMode(ThemeMode.dark);
+
                       putData('currentTheme', 'dark');
                     }
                   },
@@ -206,9 +215,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     height: 50,
                     width: MediaQuery.of(context).size.width / 3,
                     decoration: BoxDecoration(
-                        color: (currentTheme == ThemeMode.dark)
-                            ? kprimaryColor
-                            : Colors.grey,
+                        color:
+                            (Provider.of<ProviderData>(context, listen: false)
+                                        .currentTheme ==
+                                    ThemeMode.dark)
+                                ? kprimaryColor
+                                : Colors.grey,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
                     child: const Align(

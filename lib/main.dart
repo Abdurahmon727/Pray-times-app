@@ -3,14 +3,15 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:namoz_vaqtlari/Controller/provider.dart';
 import 'package:namoz_vaqtlari/View/home_page.dart';
 import 'package:namoz_vaqtlari/View/location_page.dart';
 import 'package:namoz_vaqtlari/View/notification_page.dart';
 import 'package:namoz_vaqtlari/View/settings_page.dart';
 import 'package:namoz_vaqtlari/Model/consts.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   //notification initialize
@@ -44,24 +45,7 @@ void main() async {
     currentLanguage = Language.uzbek;
   }
   //theme for hive
-  if (localFile.get('currentTheme') == 'system') {
-    currentTheme = ThemeMode.system;
-    isSystemMode = true;
-  } else if (localFile.get('currentTheme') == 'dark') {
-    currentTheme = ThemeMode.dark;
-    isSystemMode = false;
-  } else {
-    currentTheme = ThemeMode.light;
-    isSystemMode = false;
-  }
-
-  // List<NotificationForNamoz> namozNotification = [
-  //   NotificationForNamoz('Bomdod', isNotificationEnabled[0], 0),
-  //   NotificationForNamoz('Peshin', isNotificationEnabled[1], 1),
-  //   NotificationForNamoz('Asr', isNotificationEnabled[2], 2),
-  //   NotificationForNamoz('Shom', isNotificationEnabled[3], 3),
-  //   NotificationForNamoz('Xufton', isNotificationEnabled[4], 4),
-  // ];
+  hiveTheme = await localFile.get('currentTheme');
 
 //action stream
   AwesomeNotifications().actionStream.listen((_) {
@@ -76,8 +60,39 @@ void main() async {
         .then((value) => AwesomeNotifications().setGlobalBadgeCounter(0));
   });
 
-  runApp(
-    MaterialApp(
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp();
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    if (hiveTheme == 'system') {
+      Provider.of<ProviderData>(context, listen: false)
+          .setThemeMode(ThemeMode.system);
+
+      isSystemMode = true;
+    } else if (hiveTheme == 'dark') {
+      Provider.of<ProviderData>(context, listen: false)
+          .setThemeMode(ThemeMode.dark);
+      isSystemMode = false;
+    } else {
+      Provider.of<ProviderData>(context, listen: false)
+          .setThemeMode(ThemeMode.light);
+      isSystemMode = false;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       theme: ThemeData(
         textTheme: TextTheme(
           titleMedium: GoogleFonts.workSans(),
@@ -107,15 +122,16 @@ void main() async {
           splashColor: kprimaryColor,
           primaryColor: kprimaryColor,
           brightness: Brightness.dark),
-      themeMode: currentTheme,
+      themeMode: Provider.of<ProviderData>(context).currentTheme,
       title: 'Namoz vaqtlari',
       initialRoute: '/homePage',
       routes: {
         '/homePage': (context) => HomePage(),
-        '/settingsPage': (context) => SettingsPage(),
+        '/settingsPage': (context) => ChangeNotifierProvider<ProviderData>(
+            create: (context) => ProviderData(), child: SettingsPage()),
         '/locationPage': (context) => LocationPage(),
         '/notificationPage': (context) => NotificationPage(),
       },
-    ),
-  );
+    );
+  }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 late double currentFontSize;
 late int currentRegion;
 late String currentDistict;
-late ThemeMode currentTheme;
 
 String currentDate = '';
 String currentDay = '';
@@ -62,7 +61,7 @@ List<DropdownMenuItem<int>> regionsItem = [];
 List<List<DropdownMenuItem<String>>> distictItem = [];
 
 List<List<String>> disticts = [
-  ['Angren', 'Bekobod', 'Burchmulla', 'Uchtepa', 'Yangibоzоr', 'Toshkent'],
+  ['Angren', 'Burchmulla', 'Uchtepa', 'Yangibоzоr', 'Toshkent'],
   ['Kattaqo\'rg\'оn', 'Urgut', 'Samarqand', 'Jomboy'],
   ['Marg\'ilon', 'Quva', 'Qo\'qon', 'Farg\'оna', 'Оltiariq', 'Rishtоn'],
   [
@@ -75,15 +74,7 @@ List<List<String>> disticts = [
     'Xo\'jaоbоd',
     'Оltinko\'l'
   ],
-  [
-    'Namangan',
-    'Chоrtоq',
-    'Chust',
-    'Uchqo\'rg\'оn',
-    'Kosonsоy',
-    'Mingbulоq',
-    'Pоp'
-  ],
+  ['Namangan', 'Chоrtоq', 'Chust', 'Uchqo\'rg\'оn', 'Mingbulоq', 'Pоp'],
   ['Arnasоy', 'G\'allaоrоl', 'Zоmin', 'Jizzax', 'O\'smat', 'Do\'stlik'],
   ['Gazli', 'Qоrako\'l', 'Оlоt', 'Qоrоvulbоzоr', 'Buxoro'],
   ['Qarshi', 'Kоsоn', 'Dehqоnоbоd', 'Mubоrak', 'Tallimarjоn', 'G\'uzоr'],
