@@ -51,7 +51,7 @@ class _LocationPageState extends State<LocationPage> {
                     });
                     putData('currentRegion', currentRegion);
                     putData('currentDistict', currentDistict);
-                    getTimes(currentDistict, context);
+                    //getTimes(currentDistict, context);
                   },
                   items: regionsItem,
                 )
@@ -76,7 +76,7 @@ class _LocationPageState extends State<LocationPage> {
                     });
                     putData('currentDistict', currentDistict);
 
-                    getTimes(currentDistict, context);
+                    //getTimes(currentDistict, context);
                   },
                   items: distictItem[currentRegion],
                 )

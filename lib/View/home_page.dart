@@ -59,18 +59,13 @@ class _HomePageState extends State<HomePage> {
       }
     });
 
-    // for (int i = 0; i < 5; i++) {
-    //   namozNotification[i].acivateNotification();
-    // }
-
     makeDropdowns(regions, regionsItem);
     makeDropdowns2(disticts, distictItem);
   }
 
   Future<void> onRefresh() async {
-    if (currentDate.isEmpty) {
-      await getTimes(currentDistict, context);
-    }
+    await getTimes(currentDistict, context);
+
     setState(() {
       currentDate;
       currentDay;

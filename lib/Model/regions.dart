@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 late double currentFontSize;
 late int currentRegion;
 late String currentDistict;
-
+late ThemeMode currentTheme;
 String currentDate = '';
 String currentDay = '';
 String currentPlace = '';

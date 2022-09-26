@@ -4,14 +4,12 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:namoz_vaqtlari/Controller/provider.dart';
 import 'package:namoz_vaqtlari/View/home_page.dart';
 import 'package:namoz_vaqtlari/View/location_page.dart';
 import 'package:namoz_vaqtlari/View/notification_page.dart';
 import 'package:namoz_vaqtlari/View/settings_page.dart';
 import 'package:namoz_vaqtlari/Model/consts.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   //notification initialize
@@ -45,7 +43,17 @@ void main() async {
     currentLanguage = Language.uzbek;
   }
   //theme for hive
-  hiveTheme = await localFile.get('currentTheme');
+  String hiveTheme = await localFile.get('currentTheme') ?? 'light';
+  if (hiveTheme == 'system') {
+    currentTheme = ThemeMode.system;
+    isSystemMode = true;
+  } else if (hiveTheme == 'dark') {
+    currentTheme = ThemeMode.dark;
+    isSystemMode = false;
+  } else {
+    currentTheme = ThemeMode.light;
+    isSystemMode = false;
+  }
 
 //action stream
   AwesomeNotifications().actionStream.listen((_) {
@@ -63,32 +71,8 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp();
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    if (hiveTheme == 'system') {
-      Provider.of<ProviderData>(context, listen: false)
-          .setThemeMode(ThemeMode.system);
-
-      isSystemMode = true;
-    } else if (hiveTheme == 'dark') {
-      Provider.of<ProviderData>(context, listen: false)
-          .setThemeMode(ThemeMode.dark);
-      isSystemMode = false;
-    } else {
-      Provider.of<ProviderData>(context, listen: false)
-          .setThemeMode(ThemeMode.light);
-      isSystemMode = false;
-    }
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -122,13 +106,12 @@ class _MyAppState extends State<MyApp> {
           splashColor: kprimaryColor,
           primaryColor: kprimaryColor,
           brightness: Brightness.dark),
-      themeMode: Provider.of<ProviderData>(context).currentTheme,
+      themeMode: currentTheme,
       title: 'Namoz vaqtlari',
       initialRoute: '/homePage',
       routes: {
         '/homePage': (context) => HomePage(),
-        '/settingsPage': (context) => ChangeNotifierProvider<ProviderData>(
-            create: (context) => ProviderData(), child: SettingsPage()),
+        '/settingsPage': (context) => SettingsPage(),
         '/locationPage': (context) => LocationPage(),
         '/notificationPage': (context) => NotificationPage(),
       },

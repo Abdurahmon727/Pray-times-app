@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:namoz_vaqtlari/Model/regions.dart';
 
 Future<void> getTimes(String place, BuildContext context) async {
