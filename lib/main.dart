@@ -4,6 +4,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:namoz_vaqtlari/Model/theme.dart';
 import 'package:namoz_vaqtlari/View/home_page.dart';
 import 'package:namoz_vaqtlari/View/location_page.dart';
 import 'package:namoz_vaqtlari/View/notification_page.dart';
@@ -71,41 +72,24 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        textTheme: TextTheme(
-          titleMedium: GoogleFonts.workSans(),
-          titleLarge: GoogleFonts.workSans(),
-          bodyLarge: GoogleFonts.workSans(),
-          bodyMedium: GoogleFonts.workSans(),
-        ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: kprimaryColor,
-        ),
-        iconTheme: IconThemeData(color: Colors.black),
-        brightness: Brightness.light,
-        splashColor: kprimaryColor,
-        primaryColor: kprimaryColor,
-      ),
-      darkTheme: ThemeData(
-          textTheme: TextTheme(
-            titleMedium: GoogleFonts.workSans(),
-            titleLarge: GoogleFonts.workSans(),
-            bodyLarge: GoogleFonts.workSans(),
-            bodyMedium: GoogleFonts.workSans(),
-          ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: kprimaryColor,
-          ),
-          iconTheme: IconThemeData(color: Colors.white),
-          splashColor: kprimaryColor,
-          primaryColor: kprimaryColor,
-          brightness: Brightness.dark),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: currentTheme,
       title: 'Namoz vaqtlari',
       initialRoute: '/homePage',
