@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:namoz_vaqtlari/Model/api.dart';
-
 import '../Model/hive_data.dart';
 import '../Model/regions.dart';
 

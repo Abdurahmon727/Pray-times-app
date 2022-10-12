@@ -2,7 +2,7 @@
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:namoz_vaqtlari/Model/theme.dart';
 import 'package:namoz_vaqtlari/View/home_page.dart';
@@ -11,7 +11,9 @@ import 'package:namoz_vaqtlari/View/notification_page.dart';
 import 'package:namoz_vaqtlari/View/settings_page.dart';
 import 'package:namoz_vaqtlari/Model/consts.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
+import 'package:namoz_vaqtlari/logic/cubit/theme_cubit.dart';
 
+ThemeMode currentTheme = ThemeMode.light;
 void main() async {
   //notification initialize
   AwesomeNotifications().initialize(null, [
@@ -44,11 +46,11 @@ void main() async {
     currentLanguage = Language.uzbek;
   }
   //theme for hive
-  String hiveTheme = await localFile.get('currentTheme') ?? 'light';
-  if (hiveTheme == 'system') {
+  String hiveTheme = await localFile.get('currentTheme') ?? 'ThemeMode.light';
+  if (hiveTheme == 'ThemeMode.system') {
     currentTheme = ThemeMode.system;
     isSystemMode = true;
-  } else if (hiveTheme == 'dark') {
+  } else if (hiveTheme == 'ThemeMode.dark') {
     currentTheme = ThemeMode.dark;
     isSystemMode = false;
   } else {
@@ -79,26 +81,30 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+ThemeCubit myTheme = ThemeCubit(currentTheme);
+
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: currentTheme,
-      title: 'Namoz vaqtlari',
-      initialRoute: '/homePage',
-      routes: {
-        '/homePage': (context) => HomePage(),
-        '/settingsPage': (context) => SettingsPage(),
-        '/locationPage': (context) => LocationPage(),
-        '/notificationPage': (context) => NotificationPage(),
-      },
+    return BlocProvider<ThemeCubit>.value(
+      value: myTheme,
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp(
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: state.currentTheme,
+            title: 'Namoz vaqtlari',
+            initialRoute: '/homePage',
+            routes: {
+              '/homePage': (context) => HomePage(),
+              '/settingsPage': (context) => SettingsPage(),
+              '/locationPage': (context) => LocationPage(),
+              '/notificationPage': (context) => NotificationPage(),
+            },
+          );
+        },
+      ),
     );
   }
 }

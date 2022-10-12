@@ -1,8 +1,11 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:namoz_vaqtlari/Model/hive_data.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
+
+import '../logic/cubit/theme_cubit.dart';
 
 Future<void> createNotification(String name, String time, int id) async {
   print(time);
@@ -62,7 +65,8 @@ class NotificationForNamoz {
                   Text('$name namozi uchun bildirishnoma yoqildi'),
                   Icon(
                     Icons.event_available,
-                    color: (currentTheme == ThemeMode.light)
+                    color: (BlocProvider.of<ThemeCubit>(context).getTheme() ==
+                            ThemeMode.light)
                         ? Colors.white
                         : Colors.black,
                   )
@@ -81,9 +85,11 @@ class NotificationForNamoz {
                       Text('$name namozi uchun bildirishnoma o\'chirildi'),
                       Icon(
                         Icons.event_busy,
-                        color: (currentTheme == ThemeMode.light)
-                            ? Colors.white
-                            : Colors.black,
+                        color:
+                            (BlocProvider.of<ThemeCubit>(context).getTheme() ==
+                                    ThemeMode.light)
+                                ? Colors.white
+                                : Colors.black,
                       )
                     ]),
                 duration: const Duration(milliseconds: 1000),
