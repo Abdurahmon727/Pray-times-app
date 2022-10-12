@@ -4,6 +4,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:namoz_vaqtlari/Model/notification.dart';
 import 'package:namoz_vaqtlari/Model/theme.dart';
 import 'package:namoz_vaqtlari/View/home_page.dart';
 import 'package:namoz_vaqtlari/View/location_page.dart';
@@ -16,7 +17,8 @@ import 'package:namoz_vaqtlari/logic/cubit/theme_cubit.dart';
 ThemeMode currentTheme = ThemeMode.light;
 void main() async {
   //notification initialize
-  AwesomeNotifications().initialize(null, [
+  AwesomeNotifications()
+      .initialize('resource://drawable/res_notification_app_icon', [
     NotificationChannel(
         channelKey: 'Namoz_times_key',
         channelName: 'Namoz times',
@@ -84,6 +86,7 @@ class MyApp extends StatefulWidget {
 ThemeCubit myTheme = ThemeCubit(currentTheme);
 
 class _MyAppState extends State<MyApp> {
+  @override
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ThemeCubit>.value(

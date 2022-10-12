@@ -266,7 +266,7 @@ class _SettingsPageState extends State<SettingsPage> {
               }),
           TextButton(
             child: Text(
-              'Yangi sozlamalarni joriy qilish uchun dasturni qayta ishga tushiring',
+              'Yangi shrift o\'lchamini joriy qilish uchun dasturni qayta ishga tushiring',
               textAlign: TextAlign.center,
               style: GoogleFonts.workSans(
                   color: kprimaryColor, fontSize: currentFontSize - 2),
