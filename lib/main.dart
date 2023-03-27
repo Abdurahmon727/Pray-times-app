@@ -1,18 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:namoz_vaqtlari/Model/notification.dart';
-import 'package:namoz_vaqtlari/Model/theme.dart';
-import 'package:namoz_vaqtlari/View/home_page.dart';
-import 'package:namoz_vaqtlari/View/location_page.dart';
-import 'package:namoz_vaqtlari/View/notification_page.dart';
-import 'package:namoz_vaqtlari/View/settings_page.dart';
-import 'package:namoz_vaqtlari/assets/consts.dart';
-import 'package:namoz_vaqtlari/Model/regions.dart';
-import 'package:namoz_vaqtlari/logic/cubit/theme_cubit.dart';
+
+import 'Model/regions.dart';
+import 'Model/theme.dart';
+import 'View/home_page.dart';
+import 'View/location_page.dart';
+import 'View/notification_page.dart';
+import 'View/settings_page.dart';
+import 'assets/consts.dart';
+import 'logic/cubit/theme_cubit.dart';
 
 ThemeMode currentTheme = ThemeMode.light;
 void main() async {
@@ -73,7 +71,7 @@ void main() async {
         .then((value) => AwesomeNotifications().setGlobalBadgeCounter(0));
   });
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -100,10 +98,10 @@ class _MyAppState extends State<MyApp> {
             title: 'Namoz vaqtlari',
             initialRoute: '/homePage',
             routes: {
-              '/homePage': (context) => HomePage(),
-              '/settingsPage': (context) => SettingsPage(),
-              '/locationPage': (context) => LocationPage(),
-              '/notificationPage': (context) => NotificationPage(),
+              '/homePage': (context) => const HomePage(),
+              '/settingsPage': (context) => const SettingsPage(),
+              '/locationPage': (context) => const LocationPage(),
+              '/notificationPage': (context) => const NotificationPage(),
             },
           );
         },
