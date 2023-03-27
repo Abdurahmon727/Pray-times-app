@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Model/hive_data.dart';
+import '../data/hive_data.dart';
 import '../Model/regions.dart';
 
 class LocationPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:namoz_vaqtlari/Model/hive_data.dart';
+import 'package:namoz_vaqtlari/data/hive_data.dart';
 
 part 'theme_state.dart';
 

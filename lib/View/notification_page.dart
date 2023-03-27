@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:namoz_vaqtlari/Model/consts.dart';
+import 'package:namoz_vaqtlari/assets/consts.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
 
 import '../Model/notification.dart';

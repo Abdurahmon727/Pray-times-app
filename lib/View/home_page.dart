@@ -1,10 +1,10 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:namoz_vaqtlari/Model/api.dart';
-import 'package:namoz_vaqtlari/Model/consts.dart';
+import 'package:namoz_vaqtlari/data/api.dart';
+import 'package:namoz_vaqtlari/assets/consts.dart';
 import 'package:namoz_vaqtlari/Model/drawer.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
-import 'package:namoz_vaqtlari/Model/url_launcher.dart';
+import 'package:namoz_vaqtlari/data/url_launcher.dart';
 import 'package:namoz_vaqtlari/View/notification_page.dart';
 
 class HomePage extends StatefulWidget {

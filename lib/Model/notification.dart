@@ -2,7 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:namoz_vaqtlari/Model/hive_data.dart';
+import 'package:namoz_vaqtlari/data/hive_data.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
 
 import '../logic/cubit/theme_cubit.dart';

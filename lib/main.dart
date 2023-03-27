@@ -10,7 +10,7 @@ import 'package:namoz_vaqtlari/View/home_page.dart';
 import 'package:namoz_vaqtlari/View/location_page.dart';
 import 'package:namoz_vaqtlari/View/notification_page.dart';
 import 'package:namoz_vaqtlari/View/settings_page.dart';
-import 'package:namoz_vaqtlari/Model/consts.dart';
+import 'package:namoz_vaqtlari/assets/consts.dart';
 import 'package:namoz_vaqtlari/Model/regions.dart';
 import 'package:namoz_vaqtlari/logic/cubit/theme_cubit.dart';
 
