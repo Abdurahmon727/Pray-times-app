@@ -1,11 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:namoz_vaqtlari/data/api.dart';
-import 'package:namoz_vaqtlari/assets/consts.dart';
-import 'package:namoz_vaqtlari/Model/drawer.dart';
-import 'package:namoz_vaqtlari/Model/regions.dart';
-import 'package:namoz_vaqtlari/data/url_launcher.dart';
-import 'package:namoz_vaqtlari/View/notification_page.dart';
+
+import '../Model/drawer.dart';
+import '../Model/regions.dart';
+import '../assets/consts.dart';
+import '../data/api.dart';
+import '../data/url_launcher.dart';
+import 'notification_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getTimes(currentDistict, context);
+      await Repository.getTimes(currentDistict, context);
       //await AwesomeNotifications().cancelAllSchedules();
 
       setState(() {
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> onRefresh() async {
-    await getTimes(currentDistict, context);
+    await Repository.getTimes(currentDistict, context);
 
     setState(() {
       currentDate;
