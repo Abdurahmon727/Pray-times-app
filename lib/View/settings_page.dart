@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:namoz_vaqtlari/assets/consts.dart';
-import 'package:namoz_vaqtlari/Model/regions.dart';
-import 'package:namoz_vaqtlari/logic/cubit/theme_cubit.dart';
+import '../assets/consts.dart';
+import '../Model/regions.dart';
+import '../logic/cubit/theme_cubit.dart';
 import 'package:restart_app/restart_app.dart';
 
 import '../data/hive_data.dart';
