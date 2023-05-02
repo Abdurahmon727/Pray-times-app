@@ -17,6 +17,7 @@ Future<void> createNotification(String name, String time, int id) async {
       body: 'Namoz musilmonlar uchun farzdir',
     ),
     schedule: NotificationCalendar(
+      allowWhileIdle: true,
       repeats: true,
       hour: int.parse(time[0] + time[1]),
       minute: int.parse(time[3] + time[4]),
