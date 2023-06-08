@@ -93,7 +93,7 @@ class NotificationForNamoz {
                                 : Colors.black,
                       )
                     ]),
-                duration: const Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 500),
               ),
             ),
           );
