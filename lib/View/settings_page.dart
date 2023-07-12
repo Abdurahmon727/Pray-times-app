@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../assets/consts.dart';
-import '../Model/regions.dart';
-import '../logic/cubit/theme_cubit.dart';
 import 'package:restart_app/restart_app.dart';
 
+import '../Model/regions.dart';
+import '../assets/consts.dart';
 import '../data/hive_data.dart';
+import '../logic/cubit/theme_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -36,96 +36,6 @@ class _SettingsPageState extends State<SettingsPage> {
             style: TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 20),
-          // Text(
-          //   'Tilni o\'zgartirish',
-          //   style: TextStyle(
-          //       fontWeight: FontWeight.bold, fontSize: currentFontSize),
-          // ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     GestureDetector(
-          //       onTap: () {
-          //         if (currentLanguage != Language.uzbek) {
-          //           setState(() {
-          //             currentLanguage = Language.uzbek;
-          //           });
-          //           putData('currentLanguage', 'uzbek');
-          //         }
-          //       },
-          //       child: Container(
-          //         height: 50,
-          //         width: MediaQuery.of(context).size.width / 4,
-          //         decoration: BoxDecoration(
-          //             color: (currentLanguage == Language.uzbek)
-          //                 ? kprimaryColor
-          //                 : Colors.grey,
-          //             borderRadius:
-          //                 const BorderRadius.all(Radius.circular(20))),
-          //         child: const Align(
-          //             alignment: Alignment.center,
-          //             child: Text(
-          //               'Uzbek',
-          //               style: TextStyle(fontSize: 16),
-          //             )),
-          //       ),
-          //     ),
-          //     GestureDetector(
-          //       onTap: () {
-          //         if (currentLanguage != Language.kril) {
-          //           setState(() {
-          //             currentLanguage = Language.kril;
-          //           });
-          //           putData('currentLanguage', 'kril');
-          //         }
-          //       },
-          //       child: Container(
-          //         height: 50,
-          //         width: MediaQuery.of(context).size.width / 4,
-          //         decoration: BoxDecoration(
-          //             color: (currentLanguage == Language.kril)
-          //                 ? kprimaryColor
-          //                 : Colors.grey,
-          //             borderRadius:
-          //                 const BorderRadius.all(Radius.circular(20))),
-          //         child: const Align(
-          //             alignment: Alignment.center,
-          //             child: Text(
-          //               'Krilcha',
-          //               style: TextStyle(fontSize: 16),
-          //             )),
-          //       ),
-          //     ),
-          //     GestureDetector(
-          //       onTap: () {
-          //         if (currentLanguage != Language.ruskiy) {
-          //           setState(() {
-          //             currentLanguage = Language.ruskiy;
-          //           });
-          //           putData('currentLanguage', 'ruskiy');
-          //         }
-          //       },
-          //       child: Container(
-          //         height: 50,
-          //         width: MediaQuery.of(context).size.width / 4,
-          //         decoration: BoxDecoration(
-          //             color: (currentLanguage == Language.ruskiy)
-          //                 ? kprimaryColor
-          //                 : Colors.grey,
-          //             borderRadius:
-          //                 const BorderRadius.all(Radius.circular(20))),
-          //         child: const Align(
-          //             alignment: Alignment.center,
-          //             child: Text(
-          //               'Ruskiy',
-          //               style: TextStyle(fontSize: 16),
-          //             )),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          //const SizedBox(height: 10),
           Text(
             'Dastur Rejimi',
             style: TextStyle(
@@ -172,10 +82,9 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    if (BlocProvider.of<ThemeCubit>(context).getTheme() !=
+                    if (context.read<ThemeCubit>().state.currentTheme !=
                         ThemeMode.light) {
-                      BlocProvider.of<ThemeCubit>(context)
-                          .changeTheme(ThemeMode.light);
+                      context.read<ThemeCubit>().changeTheme(ThemeMode.light);
                       putData('currentTheme', 'ThemeMode.light');
                     }
                   },
@@ -184,7 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     width: MediaQuery.of(context).size.width / 3,
                     decoration: BoxDecoration(
                         color:
-                            (BlocProvider.of<ThemeCubit>(context).getTheme() ==
+                            (context.watch<ThemeCubit>().state.currentTheme ==
                                     ThemeMode.light)
                                 ? kprimaryColor
                                 : Colors.grey,
@@ -200,10 +109,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (BlocProvider.of<ThemeCubit>(context).getTheme() !=
+                    if (context.read<ThemeCubit>().state.currentTheme !=
                         ThemeMode.dark) {
-                      BlocProvider.of<ThemeCubit>(context)
-                          .changeTheme(ThemeMode.dark);
+                      context.read<ThemeCubit>().changeTheme(ThemeMode.dark);
 
                       putData('currentTheme', 'ThemeMode.dark');
                     }
@@ -213,7 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     width: MediaQuery.of(context).size.width / 3,
                     decoration: BoxDecoration(
                         color:
-                            (BlocProvider.of<ThemeCubit>(context).getTheme() ==
+                            (context.watch<ThemeCubit>().state.currentTheme ==
                                     ThemeMode.dark)
                                 ? kprimaryColor
                                 : Colors.grey,
@@ -308,3 +216,94 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
+
+          // Text(
+          //   'Tilni o\'zgartirish',
+          //   style: TextStyle(
+          //       fontWeight: FontWeight.bold, fontSize: currentFontSize),
+          // ),
+          // const SizedBox(height: 10),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     GestureDetector(
+          //       onTap: () {
+          //         if (currentLanguage != Language.uzbek) {
+          //           setState(() {
+          //             currentLanguage = Language.uzbek;
+          //           });
+          //           putData('currentLanguage', 'uzbek');
+          //         }
+          //       },
+          //       child: Container(
+          //         height: 50,
+          //         width: MediaQuery.of(context).size.width / 4,
+          //         decoration: BoxDecoration(
+          //             color: (currentLanguage == Language.uzbek)
+          //                 ? kprimaryColor
+          //                 : Colors.grey,
+          //             borderRadius:
+          //                 const BorderRadius.all(Radius.circular(20))),
+          //         child: const Align(
+          //             alignment: Alignment.center,
+          //             child: Text(
+          //               'Uzbek',
+          //               style: TextStyle(fontSize: 16),
+          //             )),
+          //       ),
+          //     ),
+          //     GestureDetector(
+          //       onTap: () {
+          //         if (currentLanguage != Language.kril) {
+          //           setState(() {
+          //             currentLanguage = Language.kril;
+          //           });
+          //           putData('currentLanguage', 'kril');
+          //         }
+          //       },
+          //       child: Container(
+          //         height: 50,
+          //         width: MediaQuery.of(context).size.width / 4,
+          //         decoration: BoxDecoration(
+          //             color: (currentLanguage == Language.kril)
+          //                 ? kprimaryColor
+          //                 : Colors.grey,
+          //             borderRadius:
+          //                 const BorderRadius.all(Radius.circular(20))),
+          //         child: const Align(
+          //             alignment: Alignment.center,
+          //             child: Text(
+          //               'Krilcha',
+          //               style: TextStyle(fontSize: 16),
+          //             )),
+          //       ),
+          //     ),
+          //     GestureDetector(
+          //       onTap: () {
+          //         if (currentLanguage != Language.ruskiy) {
+          //           setState(() {
+          //             currentLanguage = Language.ruskiy;
+          //           });
+          //           putData('currentLanguage', 'ruskiy');
+          //         }
+          //       },
+          //       child: Container(
+          //         height: 50,
+          //         width: MediaQuery.of(context).size.width / 4,
+          //         decoration: BoxDecoration(
+          //             color: (currentLanguage == Language.ruskiy)
+          //                 ? kprimaryColor
+          //                 : Colors.grey,
+          //             borderRadius:
+          //                 const BorderRadius.all(Radius.circular(20))),
+          //         child: const Align(
+          //             alignment: Alignment.center,
+          //             child: Text(
+          //               'Ruskiy',
+          //               style: TextStyle(fontSize: 16),
+          //             )),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          //const SizedBox(height: 10),
