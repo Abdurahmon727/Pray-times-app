@@ -11,7 +11,6 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   void changeTheme(ThemeMode mode) async {
-    print(mode.toString());
     putData(mode.toString(), 'currentTheme');
     emit(ThemeState(mode));
   }
